@@ -2,51 +2,33 @@ package optimizations;
 
 import java.util.ArrayList;
 
-abstract class Node implements Comparable{
-    private Weight lowestCost = null;
-    private Node previousNode = null;
-    private List<Link> links = new ArrayList<Link>();
-
+interface Node extends Comparable{
     /**
      * @return the lowestCost
      */
-    public Weight getLowestCost() {
-        return lowestCost;
-    }
+    public Weight getLowestCost();
 
     /**
      * @param lowestCost the lowestCost to set
      */
-    public void setLowestCost(Weight lowestCost) {
-        this.lowestCost = lowestCost;
-    }
+    public void setLowestCost(Weight lowestCost);
     /**
      * @return the previousNode
      */
-    public Node getPreviousNode() {
-        return previousNode;
-    }
+    public Node getPreviousNode();
 
     /**
      * @param previousNode the previousNode to set
      */
-    public void setPreviousNode(Node previousNode) {
-        this.previousNode = previousNode;
-    }
+    public void setPreviousNode(Node previousNode);
 
     /**
      * @return the links
      */
-    public List<Link> getLinks() {
-        return links;
-    }
+    public List<Link> getLinks();
     
-    public void addLink(Link newLink){
-        this.links.add(newLink);
-    }
+    public void addLink(Link newLink);
 
-    public void removeLink(Link removedLink){
-        return this.links.remove(removedLink);
-    }
+    public void removeLink(Link removedLink);
 
 }

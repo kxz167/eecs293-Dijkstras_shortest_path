@@ -37,7 +37,7 @@ $ANT_HOME/lib must contain (see Ant-JUnit and JaCoCo installation guides):
     <property name="doc.dir" value="doc" />
 
     <!--   Class containing the main method: define ONLY IF your project has a main -->
-    <!-- <property name="main-class" value="${ant.project.name}.AlarmDriver"/> -->
+    <property name="main-class" value="interest.ShortestDriver"/>
 
     <!--   Additional jar that may be needed for properly runnign junit -->
     <path id="hamcrest.classpath">
@@ -59,7 +59,7 @@ $ANT_HOME/lib must contain (see Ant-JUnit and JaCoCo installation guides):
 
     <!--   ant run : define run target ONLY IF your project has a main -->
     <target name="run" depends="build">
-        <java fork="true" classname="${main-class}" classpath="${build.dir}" output="output.txt" error="error.txt">
+        <java fork="true" classname="${main-class}" classpath="${build.dir}">
             <assertions>
                 <enable />
             </assertions>

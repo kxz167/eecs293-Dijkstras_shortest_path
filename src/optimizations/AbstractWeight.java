@@ -2,9 +2,9 @@ package optimizations;
 
 import java.util.Objects;
 
-abstract class AbstractWeight<T> implements Weight{
+public abstract class AbstractWeight<T> implements Weight<T>{
 
-    private T weight;
+    protected T weight;
 
     /**
      * @return the weight

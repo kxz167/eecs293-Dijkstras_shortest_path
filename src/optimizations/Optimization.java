@@ -18,13 +18,16 @@ public class Optimization {
         // possible;
         unvisited.add(startingNode);
 
+        //TODO YIKES COMPLEXITY
+
         // While the queue is not empty.
         while (!unvisited.isEmpty()) {
             // Pop off the queue, look at all links.
             Node consideredNode = unvisited.poll();
             // For each link from the node
-            consideredNode.getLinks().stream().filter(link -> link.isTakeable(consideredNode.getLowestCost())
+            consideredNode.getLinks().stream().filter(link -> (weightDependent ? link.isTakeable(consideredNode.getLowestCost()) : true)
                     && !finalized.contains(link.getTargetNode())).forEach(link -> {
+                        // System.out.println("A");
                         Node targetNode = link.getTargetNode();
 
                         Weight linkWeight = link.getCost();
@@ -34,11 +37,12 @@ public class Optimization {
                             configureNodeIfShorter(targetNode, consideredNode, linkWeight, targetNodeWeight);
 
                         } else {
-                            Weight combinedWeight = linkWeight.addWeight(consideredNode);
+                            Weight combinedWeight = linkWeight.addWeight(consideredNode.getLowestCost().getWeight());
 
                             configureNodeIfShorter(targetNode, consideredNode, combinedWeight, targetNodeWeight);
                         }
 
+                        unvisited.remove(targetNode);
                         unvisited.add(targetNode);
                     });
 

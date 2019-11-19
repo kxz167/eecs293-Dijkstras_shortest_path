@@ -2,8 +2,9 @@ package optimizations;
 
 import java.util.Set;
 import java.util.HashSet;
+import java.util.Objects;
 
-abstract class AbstractNode implements Node{
+public abstract class AbstractNode implements Node{
     private Weight lowestCost = null;
     private Node previousNode = null;
     private Set<Link> links = new HashSet<Link>();
@@ -46,8 +47,12 @@ abstract class AbstractNode implements Node{
         this.links.add(newLink);
     }
 
-    public void removeLink(Link removedLink){
-        this.links.remove(removedLink);
+    @Override
+    public int compareTo(Object o) {
+        if(!(o instanceof Node) || Objects.isNull(lowestCost))
+            return -1;
+
+        return lowestCost.compareTo(((Node)o).getLowestCost());
     }
 
 }

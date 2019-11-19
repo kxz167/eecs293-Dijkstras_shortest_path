@@ -1,11 +1,12 @@
 package optimizations;
 
-import java.util.ArrayList;
+import java.util.Set;
+import java.util.HashSet;
 
 abstract class AbstractNode implements Node{
     private Weight lowestCost = null;
     private Node previousNode = null;
-    private List<Link> links = new ArrayList<Link>();
+    private Set<Link> links = new HashSet<Link>();
 
     /**
      * @return the lowestCost
@@ -37,7 +38,7 @@ abstract class AbstractNode implements Node{
     /**
      * @return the links
      */
-    public List<Link> getLinks() {
+    public Set<Link> getLinks() {
         return links;
     }
     
@@ -46,7 +47,7 @@ abstract class AbstractNode implements Node{
     }
 
     public void removeLink(Link removedLink){
-        return this.links.remove(removedLink);
+        this.links.remove(removedLink);
     }
 
 }

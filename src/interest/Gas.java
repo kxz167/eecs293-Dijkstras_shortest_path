@@ -1,5 +1,7 @@
 package interest;
 
+import java.util.Objects;
+
 import optimizations.*;
 
 public class Gas extends AbstractWeight<Integer> {
@@ -8,13 +10,15 @@ public class Gas extends AbstractWeight<Integer> {
         this.weight = weight;
     }
 
-    public static Gas of(int weight) {
-        return new Gas(weight);
+    public static Gas of(int weight){
+        return new Gas(weight < 0 ? 0 : weight);
     }
 
     @Override
-    public Weight weightSumWith(Integer weight) {
-        return Gas.of(this.getWeight() + weight);
+    public Weight weightSumWith(Weight weight) {
+        Objects.requireNonNull(weight);
+        
+        return Gas.of(this.getWeight() + (Integer)weight.getWeight());
     }
 
     @Override

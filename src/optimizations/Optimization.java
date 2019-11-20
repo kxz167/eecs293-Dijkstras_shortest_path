@@ -33,7 +33,7 @@ public class Optimization {
                             configureNodeIfShorter(targetNode, consideredNode, linkWeight, targetNodeWeight);
 
                         } else {
-                            Weight combinedWeight = linkWeight.weightSumWith(consideredNode.getLowestCost().getWeight());
+                            Weight combinedWeight = linkWeight.weightSumWith(consideredNode.getLowestCost());
 
                             configureNodeIfShorter(targetNode, consideredNode, combinedWeight, targetNodeWeight);
                         }

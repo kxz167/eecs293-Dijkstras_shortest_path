@@ -48,8 +48,11 @@ public abstract class AbstractNode implements Node{
     }
     
     public void addLink(Link newLink){
-        if(Objects.nonNull(newLink))   
-            this.links.add(newLink);
+        if(Objects.nonNull(newLink)){ 
+            if(this.equals(newLink.getSourceNode())){
+                this.links.add(newLink);
+            }
+        }
     }
 
     @Override

@@ -85,9 +85,7 @@ public class Optimization {
         Set<Node> visited = new HashSet<>();
         Queue<Node> nextNodes = new PriorityQueue<>();
 
-        for (Link link : startingNode.getLinks()) {
-            nextNodes.add(link.getTargetNode());
-        }
+        startingNode.getLinks().stream().forEach(link -> nextNodes.add(link.getTargetNode()));
 
         visited.add(startingNode);
 

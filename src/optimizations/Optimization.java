@@ -3,6 +3,8 @@ package optimizations;
 import java.util.Objects;
 import java.util.Queue;
 import java.util.PriorityQueue;
+import java.util.Set;
+import java.util.HashSet;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,6 +19,7 @@ public class Optimization {
             throws UninitializedStartError {
 
         verifyInputs(startingNode);
+        clearCosts(startingNode);
 
         Queue<Node> unvisited = new PriorityQueue<>();
         List<Node> finalized = new ArrayList<>();
@@ -57,6 +60,9 @@ public class Optimization {
 
     private static void configureNodeIfShorter(Node targetNode, Node previousNode, Weight linkCost,
             Weight previousCost) {
+        assert Objects.nonNull(targetNode) : "Target node should not be null";
+        assert Objects.nonNull(linkCost) : "LinkCost should not be null";
+
         if (linkCost.compareTo(previousCost) < 0) {
 
             targetNode.setLowestCost(linkCost);
@@ -71,6 +77,31 @@ public class Optimization {
         if (!startingNode.costKnown())
             throw new UninitializedStartError(
                     "The start node should have it's cost set to the lowest weight possible.");
+    }
+
+    private static void clearCosts(Node startingNode) {
+        assert Objects.nonNull(startingNode) : "The starting Node should not be null";
+
+        Set<Node> visited = new HashSet<>();
+        Queue<Node> nextNodes = new PriorityQueue<>();
+
+        for (Link link : startingNode.getLinks()) {
+            nextNodes.add(link.getTargetNode());
+        }
+
+        visited.add(startingNode);
+
+        while (!nextNodes.isEmpty()) {
+
+            Node nextNode = nextNodes.poll();
+
+            nextNode.getLinks().stream().filter(link -> !visited.contains(link.getTargetNode()))
+                    .forEach(unvisitedLink -> nextNodes.add(unvisitedLink.getTargetNode()));
+
+            nextNode.setLowestCost(null);
+
+            visited.add(nextNode);
+        }
     }
 
     public class TestHook {

@@ -9,7 +9,12 @@ import java.util.Collections;
 
 public class Optimization {
 
-    public static List<Node> shortestPathFrom(Node startingNode, boolean weightDependent) throws UninitializedStartError{
+    public Optimization() {
+
+    }
+
+    public static List<Node> shortestPathFrom(Node startingNode, boolean weightDependent)
+            throws UninitializedStartError {
 
         verifyInputs(startingNode);
 
@@ -22,8 +27,10 @@ public class Optimization {
 
             Node consideredNode = unvisited.poll();
 
-            consideredNode.getLinks().stream().filter(link -> (weightDependent ? link.isTakeable(consideredNode.getLowestCost()) : true)
-                    && !finalized.contains(link.getTargetNode())).forEach(link -> {
+            consideredNode.getLinks().stream()
+                    .filter(link -> (weightDependent ? link.isTakeable(consideredNode.getLowestCost()) : true)
+                            && !finalized.contains(link.getTargetNode()))
+                    .forEach(link -> {
                         Node targetNode = link.getTargetNode();
 
                         Weight linkWeight = link.getCost();
@@ -58,10 +65,22 @@ public class Optimization {
         }
     }
 
-    private static void verifyInputs(Node startingNode) throws UninitializedStartError{
+    private static void verifyInputs(Node startingNode) throws UninitializedStartError {
         Objects.requireNonNull(startingNode);
 
         if (!startingNode.costKnown())
-            throw new UninitializedStartError("The start node should have it's cost set to the lowest weight possible.");
+            throw new UninitializedStartError(
+                    "The start node should have it's cost set to the lowest weight possible.");
+    }
+
+    public class TestHook {
+        public final void configureNodeIfShorter(Node targetNode, Node previousNode, Weight linkCost,
+                Weight previousCost) {
+            Optimization.configureNodeIfShorter(targetNode, previousNode, linkCost, previousCost);
+        }
+
+        public final void verifyInputs(Node startingNode) throws UninitializedStartError {
+            Optimization.verifyInputs(startingNode);
+        }
     }
 }

@@ -103,6 +103,7 @@ $ANT_HOME/lib must contain (see Ant-JUnit and JaCoCo installation guides):
                 <classfiles>
                     <fileset dir="${build.dir}">
                         <exclude name="**/*Test*.class" />
+                        <exclude name="**/ShortestDriver.class" />
                     </fileset>
                 </classfiles>
                 <sourcefiles>

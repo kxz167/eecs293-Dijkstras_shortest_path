@@ -12,4 +12,8 @@ public class Destination extends AbstractNode{
     public static final Destination of( String name){
         return new Destination(name);
     }
+
+    public String getName(){
+        return this.name;
+    }
 }

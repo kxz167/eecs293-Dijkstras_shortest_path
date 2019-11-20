@@ -9,6 +9,10 @@ public abstract class AbstractNode implements Node{
     private Node previousNode = null;
     private Set<Link> links = new HashSet<Link>();
 
+    public boolean costKnown(){
+        return Objects.nonNull(this.lowestCost);
+    }
+
     /**
      * @return the lowestCost
      */
@@ -44,7 +48,8 @@ public abstract class AbstractNode implements Node{
     }
     
     public void addLink(Link newLink){
-        this.links.add(newLink);
+        if(Objects.nonNull(newLink))   
+            this.links.add(newLink);
     }
 
     @Override

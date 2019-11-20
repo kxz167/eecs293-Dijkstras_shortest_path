@@ -5,7 +5,7 @@ import optimizations.*;
 public class Gas extends AbstractWeight<Integer> {
 
     private Gas(int weight) {
-        super(weight);
+        this.weight = weight;
     }
 
     public static Gas of(int weight) {
@@ -13,7 +13,7 @@ public class Gas extends AbstractWeight<Integer> {
     }
 
     @Override
-    public Weight addWeight(Integer weight) {
+    public Weight weightSumWith(Integer weight) {
         return Gas.of(this.getWeight() + weight);
     }
 

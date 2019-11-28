@@ -71,10 +71,10 @@ public class Optimization {
         }
     }
 
-    private static void verifyInputs(Node startingNode) throws UninitializedStartError {
+    private static void verifyInputs(Node startingNode) throws UninitializedStartError, NullPointerException {
         Objects.requireNonNull(startingNode);
 
-        if (!startingNode.costKnown())
+        if (!startingNode.isCostKnown())
             throw new UninitializedStartError(
                     "The start node should have it's cost set to the lowest weight possible.");
     }
@@ -96,7 +96,7 @@ public class Optimization {
             nextNode.getLinks().stream().filter(link -> !visited.contains(link.getTargetNode()))
                     .forEach(unvisitedLink -> nextNodes.add(unvisitedLink.getTargetNode()));
 
-            nextNode.setLowestCost(null);
+            nextNode.setLowestCost(Weight.UNKNOWN);
 
             visited.add(nextNode);
         }

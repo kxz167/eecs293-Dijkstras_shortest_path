@@ -17,7 +17,7 @@ public class DestinationTest{
         assertEquals(null, port.getLowestCost());
         assertEquals(null, los.getLowestCost());
 
-        assertFalse(sea.costKnown());
+        assertFalse(sea.isCostKnown());
         assertTrue(sea.getLinks().isEmpty());
     }
 

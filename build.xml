@@ -32,6 +32,7 @@ $ANT_HOME/lib must contain (see Ant-JUnit and JaCoCo installation guides):
     <property name="junit.dir" value="${report.dir}/junit" />
     <property name="jacoco.dir" value="${report.dir}/jacoco" />
     <property name="jacoco.file" value="${jacoco.dir}/jacoco.exec" />
+    <!-- <property name="doc.dir" value="docs"/> -->
 
     <!--   Directory for JavaDoc output -->
     <property name="doc.dir" value="doc" />

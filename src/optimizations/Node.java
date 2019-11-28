@@ -4,7 +4,7 @@ import java.util.Set;
 
 public interface Node extends Comparable{
 
-    public boolean costKnown();
+    public boolean isCostKnown();
     public Weight getLowestCost();
     public void setLowestCost(Weight lowestCost);
     public Node getPreviousNode();

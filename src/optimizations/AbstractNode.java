@@ -5,11 +5,12 @@ import java.util.HashSet;
 import java.util.Objects;
 
 public abstract class AbstractNode implements Node{
+    //Move this to the other class including getters
     private Weight lowestCost = null;
     private Node previousNode = null;
     private Set<Link> links = new HashSet<Link>();
 
-    public boolean costKnown(){
+    public boolean isCostKnown(){
         return Objects.nonNull(this.lowestCost);
     }
 

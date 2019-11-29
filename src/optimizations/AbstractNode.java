@@ -5,63 +5,36 @@ import java.util.HashSet;
 import java.util.Objects;
 
 public abstract class AbstractNode implements Node{
-    //Move this to the other class including getters
-    private Weight lowestCost = null;
-    private Node previousNode = null;
-    private Set<Link> links = new HashSet<Link>();
-
-    public boolean isCostKnown(){
-        return Objects.nonNull(this.lowestCost);
-    }
-
-    /**
-     * @return the lowestCost
-     */
-    public Weight getLowestCost() {
-        return lowestCost;
-    }
-
-    /**
-     * @param lowestCost the lowestCost to set
-     */
-    public void setLowestCost(Weight lowestCost) {
-        this.lowestCost = lowestCost;
-    }
-    /**
-     * @return the previousNode
-     */
-    public Node getPreviousNode() {
-        return previousNode;
-    }
-
-    /**
-     * @param previousNode the previousNode to set
-     */
-    public void setPreviousNode(Node previousNode) {
-        this.previousNode = previousNode;
-    }
-
-    /**
-     * @return the links
-     */
-    public Set<Link> getLinks() {
-        return links;
-    }
     
+    /**
+     * Associates a link to a node as long as the node is the source of the link
+     * 
+     * We will be utilizing the getLinks() method which will be defined by the subclass. getLinks() must return the set of links.
+     * 
+     * @param newLink The new link that we want to associate with the current node.
+     */
     public void addLink(Link newLink){
         if(Objects.nonNull(newLink)){ 
             if(this.equals(newLink.getSourceNode())){
-                this.links.add(newLink);
+                this.getLinks().add(newLink);
             }
         }
     }
 
+    /**
+     * Compares the node against another through delegation to the comparator of weights.
+     * 
+     * We will be utilizing the getLowestCost() function of the node. The user' implementation must return the lowest cost.
+     * 
+     * @param o The other node we want to compare to
+     * @return Negative if node weight is smaller, 0 if equal, and positive otherwise.
+     */
     @Override
     public int compareTo(Object o) {
-        if(!(o instanceof Node) || Objects.isNull(lowestCost))
+        if(!(o instanceof Node) || Objects.isNull(this.getLowestCost()))
             return -1;
 
-        return lowestCost.compareTo(((Node)o).getLowestCost());
+        return this.getLowestCost().compareTo(((Node)o).getLowestCost());
     }
 
 }
